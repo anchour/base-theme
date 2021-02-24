@@ -58,6 +58,7 @@
     "import-glob": "~1.5",
     "node-sass": "^5.0.0",
     "nodelist-foreach-polyfill": "^1.2.0",
+    "postcss": "^8.2.6",
     "postcss-loader": "^4.0.4",
     "postcss-safe-parser": "^5.0.2",
     "resolve-url-loader": "^3.1.2",

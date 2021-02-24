@@ -7,8 +7,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const CopyGlobsPlugin = require('copy-globs-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
+const path = require('path');
 
-const desire = require('./util/desire');
 const config = require('./config');
 
 const assetsFilenames = (config.enabled.cacheBusting) ? config.cacheBusting : '[name]';
@@ -68,8 +68,10 @@ let webpackConfig = {
             { loader: 'css', options: { sourceMap: config.enabled.sourceMaps } },
             {
               loader: 'postcss', options: {
-                postcssOptions: { path: __dirname, ctx: config },
-                sourceMap: config.enabled.sourceMaps,
+                postcssOptions: {
+                  config: path.resolve(__dirname, './postcss.config.js'),
+                  sourceMap: config.enabled.sourceMaps,
+                },
               },
             },
           ],
@@ -85,8 +87,10 @@ let webpackConfig = {
             { loader: 'css', options: { sourceMap: config.enabled.sourceMaps } },
             {
               loader: 'postcss', options: {
-                postcssOptions: { path: __dirname, ctx: config },
-                sourceMap: config.enabled.sourceMaps,
+                postcssOptions: {
+                  config: path.resolve(__dirname, './postcss.config.js'),
+                  sourceMap: config.enabled.sourceMaps,
+                },
               },
             },
             { loader: 'resolve-url', options: { sourceMap: config.enabled.sourceMaps } },
@@ -214,6 +218,8 @@ if (config.enabled.watcher) {
   webpackConfig = merge(webpackConfig, require('./webpack.config.watch'));
 }
 
+module.exports = webpackConfig;
+
 /**
  * During installation via sage-installer (i.e. composer create-project) some
  * presets may generate a preset specific config (webpack.config.preset.js) to
@@ -223,6 +229,6 @@ if (config.enabled.watcher) {
  * file, as there are limitations to using webpack-merge which can hinder your
  * ability to change certain options.
  */
-module.exports = merge.smartStrategy({
-  'module.loaders': 'replace',
-})(webpackConfig, desire(`${__dirname}/webpack.config.preset`));
+// module.exports = merge.smartStrategy({
+//   'module.loaders': 'replace',
+// })(webpackConfig, desire(`${__dirname}/webpack.config.preset`));
