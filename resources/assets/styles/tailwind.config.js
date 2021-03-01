@@ -1,12 +1,3 @@
-/*
-|-------------------------------------------------------------------------------
-| Tailwind – The Utility-First CSS Framework
-|-------------------------------------------------------------------------------
-|
-| Documentation at https://tailwindcss.com
-|
-*/
-
 /**
  * Global Styles Plugin
  *
@@ -50,6 +41,14 @@ module.exports = {
   presets: [
     require('@anchour/tailwindcss-preset')
   ],
+
+  purge: {
+    content: [
+      './resources/views/**/*.php',
+      './resources/assets/**/*.{scss,js,vue}'
+    ],
+  },
+
   theme: {
     colors: {
       primary: '#525ddc',
