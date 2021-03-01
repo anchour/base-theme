@@ -127,12 +127,94 @@ function locate_template($templates)
 }
 
 /**
- * Determine whether to show the sidebar
- * @return bool
+ * Gets all the module attributes on the wrapping <section> item.
+ *
+ * @param string $layout
+ *
+ * @return string
  */
-function display_sidebar()
+function module_attributes($layout = '')
 {
-    static $display;
-    isset($display) || $display = apply_filters('sage/display_sidebar', false);
-    return $display;
+    $attrs = collect(['class' => 'module ' . $layout, 'data-section-type' => $layout]);
+
+    $attrs = apply_filters('App/module_attributes', $attrs->filter()->toArray(), $layout);
+
+    return esc_html_attributes($attrs);
+}
+
+/**
+ * This function will escape an array of attributes and return as HTML.
+ * Taken from ACF plugin.
+ *
+ * @param array $atts
+ *
+ * @return string
+ */
+function esc_html_attributes($atts = [])
+{
+    $html = '';
+
+    foreach ($atts as $k => $v) {
+        if (is_string($v)) {
+            $v = trim($v);
+        } elseif (is_bool($v)) {
+            $v = $v ? 1 : 0;
+        } elseif (is_array($v) || is_object($v)) {
+            $v = json_encode($v);
+        }
+
+        $html .= esc_attr($k) . '="' . esc_attr($v) . '" ';
+    }
+
+    return trim($html);
+}
+
+/**
+ * Gets parameters for a 'link' sub-field based on whether or not the field is
+ * output as an array or a string.
+ *
+ * @return string
+ */
+function link_attributes($link = false, array $params = [])
+{
+    if (!$link) {
+        $link = get_sub_field('link');
+    }
+
+    if (!$link) {
+        return '';
+    }
+
+    $atts = [];
+
+    if (is_array($link)) {
+        $atts['href'] = $link['url'];
+        $atts['title'] = $link['title'];
+        $atts['target'] = $link['target'];
+    } else {
+        $atts['href'] = $link;
+    }
+
+    $targetHost = parse_url($atts['href'], PHP_URL_HOST);
+    $currentHost = $_SERVER['HTTP_HOST'];
+
+    if (!is_null($targetHost) && $targetHost != $currentHost) {
+        $atts['target'] = '_blank';
+    }
+
+    $atts = array_filter($atts);
+
+    if (!empty($params)) {
+        $params = array_map(function ($value, $key) {
+            return "{$key}={$value}";
+        }, array_values($params), array_keys($params));
+
+        $queryString = implode('&', $params);
+
+        $atts['href'] .= (strpos($atts['href'], '?') !== false ? '&' : '?') . $queryString;
+    }
+
+    $atts['href'] = esc_url_raw($atts['href']);
+
+    return esc_html_attributes($atts);
 }

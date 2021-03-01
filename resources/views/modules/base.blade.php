@@ -10,6 +10,6 @@
   @endphp
 
   <section {!! App\module_attributes($layout) !!}>
-    @include("flexible-layout.{$layout}")
+    @include("modules.{$layout}")
   </section>
 @endrows
