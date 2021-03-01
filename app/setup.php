@@ -137,4 +137,71 @@ add_action('after_setup_theme', function () {
     sage('blade')->compiler()->directive('asset', function ($asset) {
         return "<?= " . __NAMESPACE__ . "\\asset_path({$asset}); ?>";
     });
+
+    /**
+     * Create @ifRows() Blade directive
+     *
+     * Used for have_rows() calls from ACF.
+     */
+    sage('blade')->compiler()->directive('ifRows', function ($name) {
+        return "<?php if (have_rows({$name})): ?>";
+    });
+
+    /**
+     * Create @rows() Blade directive
+     *
+     * Used for have_rows() calls from ACF.
+     */
+    sage('blade')->compiler()->directive('rows', function ($name) {
+        return "<?php while (have_rows({$name})): the_row(); ?>";
+    });
+
+    /**
+     * Create @row Blade directive. Simple alias to the_row();
+     */
+    sage('blade')->compiler()->directive('row', function ($name) {
+        return "<?php the_row(); ?>";
+    });
+
+    /**
+     * Create @row_index() Blade directive
+     */
+    sage('blade')->compiler()->directive('row_index', function () {
+        return "<?= get_row_index(); ?>";
+    });
+
+    /**
+     * Create @endrows Blade directive
+     *
+     * Ends `while` loop from @rows directive.
+     */
+    sage('blade')->compiler()->directive('endrows', function () {
+        return "<?php endwhile; ?>";
+    });
+
+    /**
+     * Create @field Blade directive
+     */
+    sage('blade')->compiler()->directive('field', function ($expression) {
+        list($name, $type, $default) = explode(', ', $expression);
+
+        $args = $name;
+
+        if ($type) {
+            $args .= ", $type";
+        }
+
+        $default ??= '';
+
+        return "<?= get_field({$args}) ?: $default ?>";
+    });
+
+    /**
+     * Create @subfield Blade directive
+     */
+    sage('blade')->compiler()->directive('subfield', function ($expression) {
+        list($key, $default) = explode(', ', $expression);
+
+        return "<?= get_sub_field({$key}) ?: $default ?>";
+    });
 });
