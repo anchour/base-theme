@@ -1,0 +1,58 @@
+{
+    "key": "group_603817c0be5d0",
+    "title": "One Column Text",
+    "fields": [
+        {
+            "key": "field_603817ca80bbd",
+            "label": "Placeholder",
+            "name": "placeholder",
+            "type": "clone",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "clone": [
+                "field_5a0a199edc9f8",
+                "field_5a0a1a55e060b",
+                "field_5a0a19c0dc9f9",
+                "field_5a0a1fc2ad1cc",
+                "field_5a0a1fe9ad1cd",
+                "field_5a0a1d30a4540",
+                "field_5a0a1d41a4541"
+            ],
+            "display": "seamless",
+            "layout": "block",
+            "prefix_label": 0,
+            "prefix_name": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "page"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "left",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": false,
+    "description": "",
+    "acfe_display_title": "",
+    "acfe_autosync": [
+        "json"
+    ],
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": "",
+    "modified": 1614373171
+}
