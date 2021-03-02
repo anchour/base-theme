@@ -44,12 +44,12 @@ let webpackConfig = {
         include: config.paths.assets,
         use: 'eslint',
       },
-      {
-        enforce: 'pre',
-        test: /\.(js|s?[ca]ss)$/,
-        include: config.paths.assets,
-        loader: 'import-glob',
-      },
+      // {
+      //   enforce: 'pre',
+      //   test: /\.(js|s?[ca]ss)$/,
+      //   include: config.paths.assets,
+      //   loader: 'import-glob',
+      // },
       {
         test: /\.js$/,
         exclude: [/node_modules(?![/|\\](bootstrap|foundation-sites))/],

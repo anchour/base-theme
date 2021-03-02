@@ -218,3 +218,29 @@ function link_attributes($link = false, array $params = [])
 
     return esc_html_attributes($atts);
 }
+
+/**
+ * Get the contents of the asset provided. Uses the manifest.json
+ * file to retrieve contents that is output by the webpack
+ * build system, if present. Otherwise, retrieves files
+ * by their filename/directory. Realistically, this should only
+ * be used for SVG files within the theme directory.
+ *
+ * @param  string $path
+ *
+ * @return string
+ */
+function output_asset_contents($path = '')
+{
+    if (!$path) {
+        return '';
+    }
+
+    $fullpath = dirname(get_stylesheet_directory()) . '/dist/' . sage('assets')->get($path);
+
+    if (!file_exists($fullpath)) {
+        return '';
+    }
+
+    return file_get_contents($fullpath);
+}

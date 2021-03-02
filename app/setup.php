@@ -27,10 +27,13 @@ add_action('after_setup_theme', function () {
      * Enable features from Soil when plugin is activated
      * @link https://roots.io/plugins/soil/
      */
-    add_theme_support('soil-clean-up');
-    add_theme_support('soil-nav-walker');
-    add_theme_support('soil-nice-search');
-    add_theme_support('soil-relative-urls');
+    add_theme_support('soil', [
+        'clean-up',
+        'disable-asset-versioning',
+        'disable-trackbacks',
+        'nav-walker',
+        'nice-search',
+    ]);
 
     add_theme_support('theme-flex-modules', [
         'one-column-text',
@@ -136,6 +139,15 @@ add_action('after_setup_theme', function () {
      */
     sage('blade')->compiler()->directive('asset', function ($asset) {
         return "<?= " . __NAMESPACE__ . "\\asset_path({$asset}); ?>";
+    });
+
+    /**
+     * Create @assetContents() Blade directive - useful for inlining
+     * contents of SVG files in our templates instead of using them
+     * as background images.
+     */
+    sage('blade')->compiler()->directive('assetContents', function ($key) {
+        return '<?= ' . __NAMESPACE__ . "\\output_asset_contents({$key}); ?>";
     });
 
     /**

@@ -1,5 +1,10 @@
 .banner .nav {
-  @apply list-none p-0 flex flex-wrap;
+  @apply flex flex-wrap;
+}
+
+.banner .nav,
+.banner .nav ul {
+  @apply list-none p-0;
 }
 
 .banner .nav a {
@@ -7,5 +12,99 @@
 
   &:hover {
     color: darken(#525ddc, 30%);
+  }
+}
+
+.banner .nav li {
+  @apply list-none relative;
+}
+
+.banner .nav > li {
+  @apply xl:pl-1;
+}
+
+.banner .sub-menu {
+  @screen lg {
+    @apply hidden absolute top-full left-0 min-w-full whitespace-nowrap;
+  }
+}
+
+.banner a:focus + .sub-menu,
+.banner li:hover > .sub-menu {
+  @screen lg {
+    @apply block;
+  }
+}
+
+.banner .brand {
+  // Depending on your browser, the height may need to be explicitly set.
+  svg {
+    @apply block w-full h-auto;
+  }
+}
+
+.banner .nav > li:last-child > a {
+  @apply pr-0;
+}
+
+.primary-navigation-outer {
+  @apply absolute top-0 inset-x-0 bg-white z-40 lg:static scale-95 opacity-0 pointer-events-none transform transition-all ease-in-out duration-200;
+
+  .nav-open & {
+    @apply h-full pointer-events-auto scale-100 opacity-100;
+  }
+
+  @screen lg {
+    @apply h-auto pointer-events-auto opacity-100 transform-none scale-100 #{!important};
+  }
+}
+
+.nav-toggle {
+  @apply text-primary;
+}
+
+// Nav toggle.
+.nav-toggle__icon-bar {
+  @apply absolute block bg-current;
+
+  width: 22px;
+  margin-left: -11px;
+  height: 2px;
+  left: 50%;
+  top: 50%;
+  transition: 0.25s ease;
+  transition-property: margin, transform;
+}
+
+.nav-toggle__icon-bar--first {
+  margin-top: -7px;
+}
+
+.nav-toggle__icon-bar--middle {
+  @apply opacity-100;
+}
+
+.nav-toggle__icon-bar--last {
+  margin-top: 7px;
+}
+
+.nav-open .nav-toggle {
+  @apply text-primary;
+
+  .nav-toggle__icon-bar--first,
+  .nav-toggle__icon-bar--last {
+    margin-top: 0;
+  }
+
+  .nav-toggle__icon-bar--middle {
+    @apply opacity-0;
+  }
+
+  .nav-toggle__icon-bar--first {
+    transform: rotate(225deg);
+  }
+
+  .nav-toggle__icon-bar--last {
+    transform: rotate(315deg);
   }
 }

@@ -1,3 +1,5 @@
+// const preset = require('@anchour/tailwindcss-preset')
+
 /**
  * Global Styles Plugin
  *
@@ -38,9 +40,9 @@ const globalStyles = ({ addBase, config }) => {
  * Configuration
  */
 module.exports = {
-  presets: [
-    require('@anchour/tailwindcss-preset')
-  ],
+  // presets: [
+  //   preset,
+  // ],
 
   purge: {
     content: [
@@ -50,34 +52,36 @@ module.exports = {
   },
 
   theme: {
-    colors: {
-      primary: '#525ddc',
-      white: '#fff',
-      gray: {
-        100: '#f7fafc',
-        200: '#edf2f7',
-        300: '#e2e8f0',
-        400: '#cbd5e0',
-        500: '#a0aec0',
-        600: '#718096',
-        700: '#4a5568',
-        800: '#2d3748',
-        900: '#1a202c',
+    extend: {
+      colors: {
+        primary: '#525ddc',
+        white: '#fff',
+        gray: {
+          100: '#f7fafc',
+          200: '#edf2f7',
+          300: '#e2e8f0',
+          400: '#cbd5e0',
+          500: '#a0aec0',
+          600: '#718096',
+          700: '#4a5568',
+          800: '#2d3748',
+          900: '#1a202c',
+        },
+        transparent: 'transparent',
       },
-      transparent: 'transparent',
-    },
-    shadows: {
-      outline: '0 0 0 3px rgba(82,93,220,0.3)',
-    },
-    container: {
-      center: true,
-      padding: '1rem',
-    },
+      shadows: {
+        outline: '0 0 0 3px rgba(82,93,220,0.3)',
+      },
+      container: {
+        center: true,
+        padding: '1rem',
+      },
+    }
   },
   variants: {
     // Define variants
   },
-  plugins: [
-    globalStyles,
-  ],
+  // plugins: [
+  //   globalStyles,
+  // ],
 }
